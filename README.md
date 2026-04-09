@@ -15,9 +15,11 @@ The folder structure mirrors the program arc: primer &rarr; Modules&nbsp;1&ndash
 ```text
 0_primer/
   code/       # primer scripts and helpers
+  data/       # primer data files when a notebook needs them
   notebooks/  # primer notebooks (Colab‑friendly)
 1_data/ ... 4_data/
   code/       # module‑specific helpers and lab scripts
+  data/       # book-local datasets and project inputs
   notebooks/  # notebooks aligned with book chapters and labs
 tools/
   validate_*.py
@@ -70,7 +72,7 @@ print("Repo ready at", target)
 Once cloned:
 
 - Open any notebook under `/content/tds/0_primer/notebooks` or `/content/tds/1_data/notebooks`, etc.
-- Run the scripts under `/content/tds/.../code` as needed (`!python 1_data/code/clean_orders.py`).
+- Load the datasets under `/content/tds/.../data` and run the scripts under `/content/tds/.../code` as needed (`!python 1_data/code/clean_orders.py`).
 
 ---
 
