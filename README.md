@@ -107,5 +107,15 @@ Check `tools/validate_*.py` docstrings for usage examples.
 
 Treat this repo as the living lab companion for **The Data Scientist**: when the books and labs evolve, these notebooks and scripts are updated in lockstep. Pull regularly (or re‑clone in Colab) to stay aligned with the latest version of the program.
 
-<p align="right"><img src="https://hilpisch.com/tds_logo.png" alt="The Data Scientist" width="25%"></p>
+---
 
+## Disclaimer
+
+This repository and all associated code, notebooks, and documents are provided for instructional and illustrative purposes only.
+
+- The material is not investment, tax, or legal advice, and it is not a substitute for professional judgement in production systems.
+- The examples are simplified and may omit checks, safeguards, or hardening steps that would be required in real‑world deployments.
+- No warranty of any kind is given, express or implied; use the code at your own risk and always review it before integrating it into your own projects.
+- Do not commit secrets (API keys, passwords, tokens) to this repository or to any fork derived from it.
+
+<p align="right"><img src="https://hilpisch.com/tds_logo.png" alt="The Data Scientist" width="25%"></p>
