@@ -10,8 +10,10 @@ https://thedatascientist.dev | https://linktr.ee/dyjh
 """
 
 from __future__ import annotations
+
 from pathlib import Path
 from urllib.request import urlretrieve
+
 import pandas as pd
 
 DATA_URL = "https://hilpisch.com/Titanic.csv"
@@ -33,23 +35,18 @@ def load_raw(path: Path = RAW_PATH) -> pd.DataFrame:
 
 def clean(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
-    # Standardize column names
     df.columns = [c.strip().lower() for c in df.columns]
-    # Trim strings
-    for col in ["name", "sex", "ticket", "cabin", "embarked"]:
+    df = df.rename(columns={"class": "pclass", "freq": "freq"})
+
+    for col in ["pclass", "sex", "age", "survived"]:
         if col in df.columns:
             df[col] = df[col].astype(str).str.strip()
-    # Types
-    if "fare" in df.columns:
-        df["fare"] = pd.to_numeric(df["fare"], errors="coerce")
-    if "age" in df.columns:
-        df["age"] = pd.to_numeric(df["age"], errors="coerce")
-        df["age"] = df["age"].fillna(df["age"].median())
-    if "embarked" in df.columns:
-        df["embarked"] = df["embarked"].replace({"": None, "nan": None})
-        df["embarked"] = df["embarked"].fillna("?" ).str.upper()
-    if "sex" in df.columns:
-        df["sex"] = df["sex"].str.lower()
+
+    if "freq" in df.columns:
+        df["freq"] = pd.to_numeric(df["freq"], errors="coerce").fillna(0).astype(int)
+    if "survived" in df.columns:
+        df["survived_flag"] = df["survived"].str.lower().map({"no": 0, "yes": 1})
+
     df = df.drop_duplicates()
     return df
 
@@ -67,6 +64,19 @@ def main() -> None:
     out_path = save_clean(df_clean)
     print(f"Raw rows: {len(df_raw):,} -> Clean rows: {len(df_clean):,}")
     print(f"Saved cleaned data to {out_path}")
+    if {"pclass", "sex", "freq", "survived_flag"} <= set(df_clean.columns):
+        survival = (
+            df_clean.groupby(["pclass", "sex"])
+            .apply(
+                lambda g: (
+                    g["survived_flag"].fillna(0).mul(g["freq"]).sum() / g["freq"].sum()
+                    if g["freq"].sum()
+                    else float("nan")
+                )
+            )
+            .rename("survival_rate")
+        )
+        print(survival)
 
 
 if __name__ == "__main__":

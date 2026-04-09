@@ -8,8 +8,14 @@ written and to save its output into the book-local ``figures/`` directory.
 
 from __future__ import annotations
 
+import os
 import random
 from pathlib import Path
+
+mplconfig = Path(__file__).resolve().parent.parent / "artifacts" / "mplconfig"
+mplconfig.mkdir(parents=True, exist_ok=True)
+os.environ.setdefault("MPLCONFIGDIR", str(mplconfig))
+os.environ.setdefault("LOKY_MAX_CPU_COUNT", "1")
 
 import matplotlib.pyplot as plt
 import numpy as np

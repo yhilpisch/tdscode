@@ -13,21 +13,76 @@ from pathlib import Path
 import textwrap
 
 TEMPLATE_FILES = {
-    "README.md": "# New Data Project\n\nDescribe the question, data, and how to run the project.\n",
-    "requirements.txt": "pandas\nmatplotlib\nscikit-learn\n",
+    "README.md": textwrap.dedent(
+        """\
+        # New Data Project
+
+        Describe the question, the dataset, the notebook, and how to run the
+        project.
+        """
+    ),
+    "requirements.txt": textwrap.dedent(
+        """\
+        pandas
+        streamlit
+        pytest
+        """
+    ),
+    ".gitignore": textwrap.dedent(
+        """\
+        __pycache__/
+        *.pyc
+        .venv/
+        _minted*/
+        """
+    ),
+    "data/.gitkeep": "",
+    "figures/.gitkeep": "",
+    "notebooks/.gitkeep": "",
     "src/__init__.py": "",
-    "src/pipeline.py": textwrap.dedent(
+    "src/data_checks.py": textwrap.dedent(
         """\
         from pathlib import Path
 
 
+        def project_data_path():
+            return Path("data") / "input.csv"
+
+
+        def load_data(path=None):
+            data_path = path or project_data_path()
+            print(f"Placeholder loader; expect {data_path}")
+
+
+        if __name__ == "__main__":
+            load_data()
+        """
+    ),
+    "src/dashboard_app.py": textwrap.dedent(
+        """\
         def main():
-            data_path = Path("data") / "input.csv"
-            print(f"Placeholder pipeline; add your logic. Expecting {data_path}")
+            print("Placeholder dashboard entry point")
 
 
         if __name__ == "__main__":
             main()
+        """
+    ),
+    "tests/conftest.py": textwrap.dedent(
+        """\
+        from pathlib import Path
+        import sys
+
+
+        BOOK_ROOT = Path(__file__).resolve().parents[1]
+        if str(BOOK_ROOT) not in sys.path:
+            sys.path.insert(0, str(BOOK_ROOT))
+        """
+    ),
+    "tests/test_data_checks.py": textwrap.dedent(
+        """\
+        def test_placeholder():
+            assert True
         """
     ),
 }

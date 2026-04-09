@@ -10,9 +10,11 @@ https://thedatascientist.dev | https://linktr.ee/dyjh
 """
 
 from __future__ import annotations
+
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import pandas as pd
-from pathlib import Path
 
 plt.style.use("seaborn-v0_8")
 CLEAN_PATH = Path("data") / "titanic_clean.csv"
@@ -23,8 +25,18 @@ def load_clean(path: Path = CLEAN_PATH) -> pd.DataFrame:
 
 
 def survival_by(df: pd.DataFrame, column: str, out_path: Path) -> Path:
+    def weighted_share(group: pd.DataFrame) -> float:
+        weights = group["freq"].to_numpy()
+        if weights.sum() == 0:
+            return float("nan")
+        values = group["survived_flag"].fillna(0).to_numpy()
+        return float((values * weights).sum() / weights.sum())
+
     grouped = (
-        df.groupby(column)["survived"].mean().rename("survival_rate").sort_values(ascending=False)
+        df.groupby(column)
+        .apply(weighted_share)
+        .rename("survival_rate")
+        .sort_values(ascending=False)
     )
     fig, ax = plt.subplots(figsize=(6.4, 3.6))
     grouped.plot(kind="bar", ax=ax, color="#0B3C78")
