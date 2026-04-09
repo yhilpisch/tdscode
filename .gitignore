@@ -1,0 +1,13 @@
+# Node-style and Python-style ignores as a starter;
+# adjust once the companion repo structure is in place.
+.DS_Store
+__pycache__/
+.venv/
+env/
+venv/
+.ipynb_checkpoints/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
