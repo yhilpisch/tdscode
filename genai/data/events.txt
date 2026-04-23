@@ -1,0 +1,5 @@
+login
+purchase
+login
+logout
+purchase

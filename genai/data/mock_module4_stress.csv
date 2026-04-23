@@ -1,0 +1,5 @@
+id,status,latency_ms,error_rate
+1,ok,120,0.01
+2,ok,98,0.00
+3,degraded,450,0.12
+4,error,800,0.35

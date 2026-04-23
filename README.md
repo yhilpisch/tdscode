@@ -2,7 +2,9 @@
 
 # The Data Scientist &mdash; Companion Code Base
 
-Welcome! This repository ships the runnable material that goes hand in hand with the primer and four modules of **The Data Scientist (TDS)**.
+Welcome! This repository ships the runnable material that goes hand in hand
+with the primer and four modules of **The Data Scientist (TDS)**, plus the
+parallel `genai/` companion track.
 
 Each directory mirrors the structure of the books so you can jump from a chapter or lab into the matching notebook or script without hunting for files.
 
@@ -10,7 +12,8 @@ Each directory mirrors the structure of the books so you can jump from a chapter
 
 ## Repository Layout
 
-The folder structure mirrors the program arc: primer &rarr; Modules&nbsp;1&ndash;4.
+The folder structure mirrors the program arc: primer &rarr; Modules&nbsp;1&ndash;4,
+plus the GenAI companion.
 
 ```text
 0_primer/
@@ -23,6 +26,12 @@ The folder structure mirrors the program arc: primer &rarr; Modules&nbsp;1&ndash
   notebooks/  # notebooks aligned with book chapters and labs
 tools/
   validate_*.py
+genai/
+  code/       # GenAI companion Python assets
+  data/       # small fixture datasets used in companion examples
+  notebooks/  # companion notebooks
+  tests/      # companion test scaffolds
+  artifacts/  # prompt logs, verification notes, and runbook artifacts
 README.md     # Learner‑facing overview (this document)
 ```
 
